@@ -31,7 +31,7 @@ import Testing
       )
     }
 
-    @Test func unlabeledAssociatedValueThrowsError() throws {
+    @Test func unlabeledAssociatedValueExpands() throws {
       assertMacroExpansion(
         """
         @CaseConversion
@@ -42,15 +42,16 @@ import Testing
         expandedSource: """
           enum Route {
             case detail(Int)
+            var asDetail: Int? {
+              if case let .detail(int) = self {
+                int
+              } else {
+                nil
+              }
+            }
           }
           """,
-        diagnostics: [
-          .init(
-            message: CaseConversionMacro.MacroDiagnostic.requiresLabeledAssociatedValues.message,
-            line: 1,
-            column: 1
-          )
-        ],
+        diagnostics: [],
         macros: testMacros
       )
     }
