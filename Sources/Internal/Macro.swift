@@ -5,7 +5,7 @@ public import SwiftSyntaxMacros
 
 public struct CaseConversionMacro: MemberMacro {
   public enum MacroDiagnostic: String, DiagnosticMessage {
-    case requiresEnum = "#CaseConversion requires an enum"
+    case requiresEnum = "@CaseConversion requires an enum"
 
     public var message: String { rawValue }
 
@@ -26,7 +26,6 @@ public struct CaseConversionMacro: MemberMacro {
 
     guard declaration.as(EnumDeclSyntax.self) != nil else {
       let diagnostic = Diagnostic(node: Syntax(attribute), message: MacroDiagnostic.requiresEnum)
-      context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
