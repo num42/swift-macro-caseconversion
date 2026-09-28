@@ -1,16 +1,11 @@
-internal import MacroTester
-internal import SwiftSyntaxMacros
-internal import SwiftSyntaxMacrosTestSupport
+internal import SwiftSyntaxMacrosGenericTestSupport
 internal import Testing
 
 #if canImport(CaseConversionMacros)
   import CaseConversionMacros
 
-  @Suite struct CaseConversionMacroDiagnosticsTests {
-    let testMacros: [String: Macro.Type] = [
-      "CaseConversion": CaseConversionMacro.self
-    ]
-
+  @Suite
+  struct CaseConversionDiagnosticsTests {
     @Test func structThrowsError() throws {
       assertMacroExpansion(
         """
@@ -42,13 +37,14 @@ internal import Testing
         expandedSource: """
           enum Route {
             case detail(Int)
-            var asDetail: Int? {
-              if case let .detail(int) = self {
-                int
-              } else {
-                nil
+
+              var asDetail: Int? {
+                if case let .detail(int) = self {
+                  int
+                } else {
+                  nil
+                }
               }
-            }
           }
           """,
         diagnostics: [],

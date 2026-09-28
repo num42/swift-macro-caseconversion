@@ -1,16 +1,16 @@
 internal import MacroTester
 internal import SwiftSyntaxMacros
-internal import SwiftSyntaxMacrosTestSupport
 internal import Testing
 
 #if canImport(CaseConversionMacros)
   import CaseConversionMacros
 
-  private let testMacros: [String: Macro.Type] = [
+  let testMacros: [String: Macro.Type] = [
     "CaseConversion": CaseConversionMacro.self
   ]
 
-  @Suite struct CaseConversionMacroTests {
+  @Suite
+  struct CaseConversionMacroTests {
     @Test func caseConversion() {
       MacroTester.testMacro(macros: testMacros)
     }
