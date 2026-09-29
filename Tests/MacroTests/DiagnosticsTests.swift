@@ -1,3 +1,4 @@
+internal import MacroTestHelper
 internal import SwiftSyntaxMacrosGenericTestSupport
 internal import Testing
 
@@ -7,7 +8,7 @@ internal import Testing
   @Suite
   struct CaseConversionDiagnosticsTests {
     @Test func structThrowsError() throws {
-      assertMacroExpansion(
+      MacroTestHelper.assertMacroExpansion(
         """
         @CaseConversion
         struct AStruct {}
@@ -27,7 +28,7 @@ internal import Testing
     }
 
     @Test func unlabeledAssociatedValueExpands() throws {
-      assertMacroExpansion(
+      MacroTestHelper.assertMacroExpansion(
         """
         @CaseConversion
         enum Route {
